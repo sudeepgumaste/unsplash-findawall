@@ -3,6 +3,7 @@ import Unsplash from 'unsplash-js';
 import { toJson } from 'unsplash-js';
 import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -16,11 +17,16 @@ const unsplash = new Unsplash({
 
 const app = express();
 
+app.use(cors());
+
 app.get('/api/photos', (req, res) => {
   unsplash.photos
-    .listPhotos(1, 20)
+    .listPhotos(req.query.page, req.query.count)
     .then(toJson)
-    .then((json) => res.json(json));
+    .then((json) => res.json(json))
+    .catch((error)=>{
+      console.log(error);
+    })
 });
 
 const { PORT=5000 } = process.env.PORT;
