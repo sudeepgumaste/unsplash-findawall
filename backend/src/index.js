@@ -24,14 +24,24 @@ app.get('/api/photos', (req, res) => {
     .listPhotos(req.query.page, req.query.count)
     .then(toJson)
     .then((json) => res.json(json))
-    .catch((error)=>{
+    .catch((error) => {
       console.log(error);
-    })
+    });
 });
 
-const { PORT=5000 } = process.env.PORT;
+app.get('/api/photos/search', (req, res) => {
+  unsplash.search
+    .photos(req.query.keyword, req.query.page, req.query.count)
+    .then(toJson)
+    .then((json) => res.json(json))
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
-app.listen(PORT,()=>{
+const { PORT = 5000 } = process.env.PORT;
+
+app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
   console.log(`REST APIs at http://localhost:${PORT}/api/photos`);
 });
