@@ -4,6 +4,8 @@ import { toJson } from 'unsplash-js';
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
+import fs from 'fs'
 
 dotenv.config();
 
@@ -18,6 +20,9 @@ const unsplash = new Unsplash({
 const app = express();
 
 app.use(cors());
+app.use(morgan('dev'))
+app.use(morgan('combined', {stream: fs.createWriteStream('./logs/requests.log', {flags: 'a'})}))
+
 
 app.get('/api/photos', (req, res) => {
   unsplash.photos
@@ -43,5 +48,5 @@ const { PORT = 5000 } = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
-  console.log(`REST APIs at http://localhost:${PORT}/api/photos`);
+  console.log(`🚀 REST APIs at http://localhost:${PORT}/api/photos`);
 });
