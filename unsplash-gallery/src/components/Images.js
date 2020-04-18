@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { backendURL } from '../config';
-import Image from './image';
+import Image from './Image';
 
-const imageCount = 30;
+const imageCount = 15;
 
 const Images = () => {
   const [images, setImages] = useState([]);
@@ -15,6 +15,7 @@ const Images = () => {
   useEffect(() => {
     Axios.get(`${backendURL}/api/photos?page=${page}&count=${imageCount}`).then(
       (res) => {
+        console.log(res.data);
         setImages(res.data);
       }
     );
@@ -70,7 +71,7 @@ const Images = () => {
         {images.map((image) => (
           <Image
             key={image.id}
-            url={image.urls.thumb}
+            url={image.urls.small}
             alt_description={image.alt_description}
           />
         ))}

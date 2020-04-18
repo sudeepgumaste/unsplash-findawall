@@ -1,15 +1,20 @@
 import React from 'react';
 import './App.css';
+
 import Images from './components/Images';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Unsplash Gallery
-        <Images></Images>
-      </header>
-    </div>
+    <>
+      <Navbar/>
+      <div className="App">
+        <header className="App-header">
+          Unsplash Gallery
+          <Images></Images>
+        </header>
+      </div>
+    </>
   );
 }
 
