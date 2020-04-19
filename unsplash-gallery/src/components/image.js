@@ -12,10 +12,10 @@ const ImageContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 
-  .artist{
+  .artist-overlay{
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.4);
     opacity: 0;
     transition: opacity ease 0.2s;
     cursor: pointer;
@@ -23,9 +23,22 @@ const ImageContainer = styled.div`
     display: flex;
     justify-content: center;
 
-    p{
-      color: white;
+    .artist-card{
+      padding: 0.5rem 1rem;
+      background: #f3f3f3;
+      border-radius: 0.5rem;
       margin-top: auto;
+      display: flex;
+      align-items: center;
+
+      .artist-image{
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.5rem;
+        border-radius: 1rem;
+        border: 1px solid #ccc;
+        background-size: contain;
+      }
     }
     &:hover{
       opacity: 1
@@ -38,10 +51,17 @@ const Image = ({image}) => {
     <ImageContainer style={{
       backgroundImage: `url(${image.urls.small})` 
     }}>
-      <div className="artist">
-        <p>
+      <div className="artist-overlay">
+        <div className="artist-card">
+          <div 
+            className="artist-image"
+            style={{
+              backgroundImage : `url(${image.user.profile_image.small})`
+            }}
+          >
+          </div>
           {image.user.name}
-        </p>
+        </div>
       </div>
     </ImageContainer>
   );
