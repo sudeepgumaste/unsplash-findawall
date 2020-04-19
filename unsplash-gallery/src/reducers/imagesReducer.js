@@ -1,10 +1,17 @@
 const imagesReducerDefaultStarte = {
     images : [],
-    keyword: null
+    keyword: null,
+    page: 1
 }
 
 const imagesReducer = (state = imagesReducerDefaultStarte, action) => {
     switch(action.type){
+        case 'SET_PAGE' : 
+            return {
+                ...state,
+                page: action.page
+            }
+
         case 'SET_IMAGES' : 
             return {
                 ...state, 

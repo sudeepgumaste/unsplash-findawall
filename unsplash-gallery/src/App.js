@@ -13,13 +13,15 @@ const Wrapper = styled.div`
   width: 100vw;
   overflow-y: hidden;
   min-height: 100vh;
-  background: #555;
+  background: #fefefe;
   display: flex;
   justify-content: center;
 `
 const Container = styled.div`
   height: 100%;
   max-width: 75rem;
+  width: 100%;
+  padding-top: 2rem;
 `
 
 const store = configureStore()

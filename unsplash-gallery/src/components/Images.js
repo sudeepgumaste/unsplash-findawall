@@ -1,77 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { backendURL } from '../config';
+import styled from 'styled-components';
 
 import Image from './Image';
 
-import {setImages as setReduxImages} from '../actions/imagesActions';
+import { setImages, extendImages, setPage } from '../actions/imagesActions';
 import { connect } from 'react-redux';
 
 const imageCount = 15;
 
-const Images = (props) => {
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
-  const [searchTriggered, setSearchTriggered] = useState(false);
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`
+
+const Images = ({images, page, keyword, dispatch}) => {
 
   useEffect(() => {
-    Axios.get(`${backendURL}/api/photos?page=${page}&count=${imageCount}`).then(
-      (res) => {
-        setImages(res.data);
-      }
-    );
-    setPage((p) => p + 1);
-    props.dispatch(setReduxImages(keyword,page,imageCount));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(setImages({page,imageCount}));
+    dispatch(setPage(page+1));
   }, []);
 
   const fetchLatestImages = () => {
-    Axios.get(`${backendURL}/api/photos?page=${page}&count=${imageCount}`).then(
-      (res) => {
-        setImages([...images, ...res.data]);
-      }
-    );
-    setPage((p) => p + 1);
-  };
-
-  const fetchSearchedImages = () => {
-    Axios.get(
-      `${backendURL}/api/photos/search?keyword=${keyword}&page=${page}&count=${imageCount}`
-    ).then((res) => {
-      setImages([...images, ...res.data.results]);
-    });
-    setPage((p) => p + 1);
-  };
-
-  const onSearchClick = () => {
-    setPage(1);
-    setSearchTriggered(true);
-    setImages(_=>[])
-    Axios.get(
-      `${backendURL}/api/photos/search?keyword=${keyword}&page=${page}&count=${imageCount}`
-    ).then((res) => {
-      setImages(_ => res.data.results);
-    });
+    dispatch(extendImages({page, imageCount, keyword: keyword}));
+    dispatch(setPage(page+1));
   };
 
   return (
     <div>
-      <input
-        type='text'
-        value={keyword}
-        onChange={(e) => {
-          setKeyword(e.target.value);
-        }}
-      />
-      <button onClick={onSearchClick}>Search</button>
       <InfiniteScroll
         dataLength={images.length}
-        next={searchTriggered?fetchSearchedImages:fetchLatestImages}
+        next={fetchLatestImages}
         hasMore={true}
         loader={<h4>Loading..</h4>}
-      >
+        >
+        <Container>
         {images.map((image) => (
           <Image
             key={image.id}
@@ -79,9 +43,16 @@ const Images = (props) => {
             alt_description={image.alt_description}
           />
         ))}
+        </Container>
       </InfiniteScroll>
     </div>
   );
 };
 
-export default connect()(Images);
+const mapStateToProps = (state) => ({
+  images: state.imagesReducer.images,
+  keyword: state.imagesReducer.keyword,
+  page: state.imagesReducer.page
+})
+
+export default connect(mapStateToProps)(Images);

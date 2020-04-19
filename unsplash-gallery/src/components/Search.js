@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux'
 
-import { setKeyword } from '../actions/imagesActions';
+import { setKeyword, setImages, setPage } from '../actions/imagesActions';
 
 const Form = styled.form`
     display: flex;
@@ -38,7 +38,12 @@ const Search = (props) => {
 
     onsubmit = (e) => {
         e.preventDefault();
-        props.dispatch(setKeyword(search));
+        window.scrollTop = 0;
+        setTimeout(()=>{
+            props.dispatch(setKeyword(search));
+            props.dispatch(setImages({page: 1,imageCount: 15, keyword:search}));
+            props.dispatch(setPage(2));
+        }, 200)
     }
 
     return (
