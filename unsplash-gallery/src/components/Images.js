@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { backendURL } from '../config';
+
 import Image from './Image';
+
+import {setImages as setReduxImages} from '../actions/imagesActions';
+import { connect } from 'react-redux';
 
 const imageCount = 15;
 
-const Images = () => {
+const Images = (props) => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState('');
@@ -15,11 +19,11 @@ const Images = () => {
   useEffect(() => {
     Axios.get(`${backendURL}/api/photos?page=${page}&count=${imageCount}`).then(
       (res) => {
-        console.log(res.data);
         setImages(res.data);
       }
     );
     setPage((p) => p + 1);
+    props.dispatch(setReduxImages(keyword,page,imageCount));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,4 +84,4 @@ const Images = () => {
   );
 };
 
-export default Images;
+export default connect()(Images);

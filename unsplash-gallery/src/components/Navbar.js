@@ -8,11 +8,11 @@ const Nav = styled.nav`
     position: sticky;
     top:0;
     left:0;
-    padding: 1rem 3rem;
+    padding: 0 3rem;
     background: #111111;
     display: flex;
     align-items: center;
-
+    height: 3.8rem;
     h1{
         font-size: 1.2rem;
         color: white
