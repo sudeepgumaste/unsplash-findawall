@@ -36,11 +36,10 @@ const Images = ({images, page, keyword, dispatch}) => {
         loader={<h4>Loading..</h4>}
         >
         <Container>
-        {images.map((image) => (
+        {images.map((image, index) => (
           <Image
-            key={image.id}
-            url={image.urls.small}
-            alt_description={image.alt_description}
+            key = {index}
+            image = {image}
           />
         ))}
         </Container>
