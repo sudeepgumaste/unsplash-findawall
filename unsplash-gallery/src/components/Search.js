@@ -8,12 +8,12 @@ import { setKeyword, setImages, setPage } from '../actions/imagesActions';
 const Form = styled.form`
     display: flex;
     margin-left: auto;
-    background: rgba(255,255,255, 0.1);
-    height: 2rem;
+    background: rgba(255,255,255, 0.2);
+    height: 2.5rem;
     padding-left:0.5rem;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     overflow: hidden;
-    width: 20rem;
+    width: 25rem;
 
     input{
         flex: 1;
@@ -24,11 +24,11 @@ const Form = styled.form`
     }
 
     button{
-        border-radius: 1rem;
+        border-radius: 1.25rem;
         border: none;
         color: white;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0 2rem;
         font-weight: bold;
     }
 `

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { setPopupState, setImageObject } from '../actions/appActions';
 
 const ImageContainer = styled.div`
   width: 20rem;
@@ -46,12 +48,18 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Image = ({image}) => {
+const Image = ({image, dispatch}) => {
   return (
     <ImageContainer style={{
       backgroundImage: `url(${image.urls.small})` 
     }}>
-      <div className="artist-overlay">
+      <div 
+        className="artist-overlay"
+        onClick = {()=>{
+          dispatch(setPopupState(true));
+          dispatch(setImageObject(image));
+        }}
+      >
         <div className="artist-card">
           <div 
             className="artist-image"
@@ -67,4 +75,4 @@ const Image = ({image}) => {
   );
 }
 
-export default Image;
+export default connect()(Image);
