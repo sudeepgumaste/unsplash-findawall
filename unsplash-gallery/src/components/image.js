@@ -56,6 +56,7 @@ const Image = ({image, dispatch}) => {
       <div 
         className="artist-overlay"
         onClick = {()=>{
+          window.document.body.style.overflowY = 'hidden'
           dispatch(setPopupState(true));
           dispatch(setImageObject(image));
         }}

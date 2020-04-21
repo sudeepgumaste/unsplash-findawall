@@ -20,6 +20,7 @@ const Images = ({images, page, keyword, dispatch}) => {
   useEffect(() => {
     dispatch(setImages({page,imageCount}));
     dispatch(setPage(page+1));
+    // eslint-disable-next-line
   }, []);
 
   const fetchLatestImages = () => {

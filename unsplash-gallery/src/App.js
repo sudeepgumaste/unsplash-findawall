@@ -1,46 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import {Provider} from "react-redux"
 
 import Images from './components/Images';
 import Navbar from './components/Navbar';
+import Popup from './components/Popup';
 
-import configureStore from './config/reduxStore'
 
 const Wrapper = styled.div`
   width: 100vw;
-  overflow-y: hidden;
   min-height: 100vh;
   background: #eeeeee;
   display: flex;
   justify-content: center;
-`
+  `
 const Container = styled.div`
-  height: 100%;
+  overflow-y: auto;
   max-width: 90rem;
   width: 100%;
   padding-top: 2rem;
 `
 
-const store = configureStore()
-store.subscribe(()=>{
-  console.log(store.getState());
-})
-
-function App() {
+function App({popupState}) {
   return (
     <>
-      <Provider store={store}>
+      { popupState && <Popup/> }
       <Navbar/>
-        <Wrapper>
-          <Container>
-            <Images/>
-          </Container>
-        </Wrapper>
-      </Provider>
+      <Wrapper>
+        <Container>
+          <Images/>
+        </Container>
+      </Wrapper>
     </>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  popupState : state.appReducer.popupState
+})
+
+export default connect(mapStateToProps)(App);
