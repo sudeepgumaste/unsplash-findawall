@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import Axios from 'axios';
 
 import styled from 'styled-components';
 
@@ -25,11 +26,30 @@ const PopupCard = styled.div`
     background : white;
     border-radius: 2rem;
     img{
-        width: 100%
+        width: 100%;
+        border-radius: 1rem;
     }
 `
 
+const toDataURL = url => fetch(url)
+.then(response => response.blob())
+.then(blob => new Promise((resolve, reject) => {
+  const reader = new FileReader()
+  reader.onloadend = () => resolve(reader.result)
+  reader.onerror = reject
+  reader.readAsDataURL(blob)
+}))
+
 export const Popup = ({dispatch, image}) => {
+    const [imageSrc, setImageSrc] = useState();
+
+    useEffect(()=>{
+        toDataURL(image.urls.regular)
+            .then(dataUrl => {
+                setImageSrc(dataUrl);
+             })
+    },[])
+
     return (
         <PopupOverlay
             onClick = {()=>{
@@ -39,7 +59,8 @@ export const Popup = ({dispatch, image}) => {
             }}        
         >
             <PopupCard>
-                <img src={image.urls.regular} alt={image.alt_description}/>
+                {imageSrc &&
+                <img src={imageSrc} alt={image.alt_description}/>}
             </PopupCard>
         </PopupOverlay>
     )

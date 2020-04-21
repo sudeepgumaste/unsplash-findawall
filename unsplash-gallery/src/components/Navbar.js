@@ -13,7 +13,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     height: 3.8rem;
-    z-index: 5000
+    z-index: 5000;
     h1{
         font-size: 1.2rem;
         color: white
