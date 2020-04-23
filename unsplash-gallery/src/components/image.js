@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { setPopupState, setImageObject } from '../actions/appActions';
 
 const ImageContainer = styled.div`
+  --width-calc : min(20rem, 100%);
   width: 20rem;
-  height: 25rem;
+  height: 20rem;
   overflow: hidden;
   border-radius: 1rem;
   margin:1rem;
