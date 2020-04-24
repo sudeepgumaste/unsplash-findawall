@@ -56,6 +56,7 @@ const Search = (props) => {
         e.preventDefault();
         window.scrollTop = 0;
         setTimeout(()=>{
+            window.location.href = '/#top';
             props.dispatch(setKeyword(search));
             props.dispatch(setImages({page: 1,imageCount: 15, keyword:search}));
             props.dispatch(setPage(2));
