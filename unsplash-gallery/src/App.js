@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Images from './components/Images';
 import Navbar from './components/Navbar';
 import Popup from './components/Popup';
+import Header from './components/Header';
 
 
 const Wrapper = styled.div`
@@ -27,6 +28,7 @@ function App({popupState}) {
     <>
       { popupState && <Popup/> }
       <Navbar/>
+      <Header/>
       <Wrapper>
         <Container>
           <div href="#top"></div>
