@@ -1,6 +1,7 @@
 const appReducerDefaultState = {
     popupState: false,
-    image: {} 
+    image: {},
+    showNavSearch: false
 }
 
 const appReducer = (state = appReducerDefaultState, action) => {
@@ -16,6 +17,12 @@ const appReducer = (state = appReducerDefaultState, action) => {
                 ...state,
                 image : action.image
             }
+
+        case 'SET_SHOW_NAV_SEARCH' : 
+        return {
+            ...state,
+            showNavSearch : action.trigger
+        }
 
         default:
             return state;

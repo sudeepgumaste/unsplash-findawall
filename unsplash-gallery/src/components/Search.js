@@ -8,27 +8,20 @@ import { setKeyword, setImages, setPage } from "../actions/imagesActions";
 
 const Form = styled.form`
   display: flex;
-  margin-left: auto;
-  background: #444;
-  height: 2.5rem;
-  padding-left: 0.5rem;
-  border-radius: 1.25rem;
+  background: #fff;
+  padding: 0.5rem;
+  padding-right: 0;
+  border-radius: 0.5rem;
   overflow: hidden;
-  width: 10rem;
+  width: 38rem;
   transition: width ease 0.2s;
   /* border: 1px solid white; */
-
-  &.focus {
-    width: 30rem;
-  }
 
   input {
     flex: 1;
     background: none;
     border: none;
-    color: white;
-    padding: 0 0.5rem;
-    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
   }
 
   button {
@@ -38,9 +31,8 @@ const Form = styled.form`
     padding: 0 1rem;
     font-weight: bold;
     font-size: 0.9rem;
-    color: white;
+    /* color: white; */
     cursor: pointer;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
 
     svg {
       height: 1.5rem;
@@ -68,7 +60,7 @@ const Search = (props) => {
   };
 
   return (
-    <Form ref={formRef}>
+    <Form ref={formRef} className={props.showNavSearch?'visible':''}>
       <input
         onFocus={() => {
           formRef.current.classList.add("focus");
@@ -90,6 +82,7 @@ const Search = (props) => {
 
 const mapStateToProps = (state) => ({
   keyword: state.imagesReducer.keyword,
+  showNavSearch: state.appReducer.showNavSearch
 });
 
 export default connect(mapStateToProps)(Search);
