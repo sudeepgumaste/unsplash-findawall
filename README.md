@@ -12,7 +12,7 @@ A simple responsive web application to search for high quality images/wallpapers
 
 <br />
 
-![](unsplash-gallery/screenshots/image3.png)
+![](unsplash-gallery/screenshots/image3.PNG)
 
 <br />
 
