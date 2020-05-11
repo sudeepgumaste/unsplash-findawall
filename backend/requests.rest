@@ -1,0 +1,4 @@
+GET http://localhost:5000/api/photos?page=1&count=2
+
+###
+GET http://localhost:5000/api/photos/search?page=1&count=2&keyword=cat
